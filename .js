@@ -1,45 +1,48 @@
-// Firebase Setup
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-
+// Firebase Authentication Setup
 const firebaseConfig = {
-    apiKey: "YOUR_FIREBASE_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
     projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
     appId: "YOUR_APP_ID"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-// Registration
-document.getElementById("register-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const email = document.getElementById("reg-email").value;
-    const password = document.getElementById("reg-password").value;
+// Login Function
+document.getElementById("login-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    let email = document.getElementById("login-email").value;
+    let password = document.getElementById("login-password").value;
 
-    createUserWithEmailAndPassword(auth, email, password)
+    auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            alert("User registered successfully!");
+            alert("Login Successful!");
+            window.location.href = "/home"; // Redirect after login
         })
         .catch((error) => {
             alert(error.message);
         });
 });
 
-// Login
-document.getElementById("login-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+// Register Function
+document.getElementById("register-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    let email = document.getElementById("register-email").value;
+    let password = document.getElementById("register-password").value;
 
-    signInWithEmailAndPassword(auth, email, password)
+    auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            alert("Login successful!");
+            alert("Registration Successful!");
+            window.location.href = "/home"; // Redirect after registration
         })
         .catch((error) => {
             alert(error.message);
         });
 });
+
