@@ -1,54 +1,49 @@
-// Firebase Authentication Setup
-const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
-};
+// Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+// Your Firebase Configuration (replace with your actual keys)
+const firebaseConfig = {
+  apiKey: "AIzaSyDPpsUBq6uTTvricRPKLCvhZ9snXYH1BV0",
+  authDomain: "plantlog-2f4ff.firebaseapp.com",
+  projectId: "plantlog-2f4ff",
+  storageBucket: "plantlog-2f4ff.firebasestorage.app",
+  messagingSenderId: "225155618015",
+  appId: "1:225155618015:web:5330d974c0dac88e0d056a",
+  measurementId: "G-0MZ869Z4Q2"
+};
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 // Login Function
-const loginForm = document.getElementById("login-form");
-if (loginForm) {
-    loginForm.addEventListener("submit", function(event) {
-        event.preventDefault();
+document.getElementById("login-form")?.addEventListener("submit", function(event) {
+    event.preventDefault();
+    let email = document.getElementById("login-email").value;
+    let password = document.getElementById("login-password").value;
 
-        let email = document.getElementById("login-email").value;
-        let password = document.getElementById("login-password").value;
-
-        auth.signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                alert("Login Successful!");
-                window.location.href = "/home"; // Redirect to home page
-            })
-            .catch((error) => {
-                alert(error.message);
-            });
-    });
-}
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            alert("Login Successful!");
+            window.location.href = "/home"; // Redirect
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
+});
 
 // Register Function
-const registerForm = document.getElementById("register-form");
-if (registerForm) {
-    registerForm.addEventListener("submit", function(event) {
-        event.preventDefault();
+document.getElementById("register-form")?.addEventListener("submit", function(event) {
+    event.preventDefault();
+    let email = document.getElementById("register-email").value;
+    let password = document.getElementById("register-password").value;
 
-        let email = document.getElementById("register-email").value;
-        let password = document.getElementById("register-password").value;
-
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                alert("Registration Successful!");
-                window.location.href = "/home"; // Redirect to home page
-            })
-            .catch((error) => {
-                alert(error.message);
-            });
-    });
-}
-
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            alert("Registration Successful!");
+            window.location.href = "/home"; // Redirect
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
+});
