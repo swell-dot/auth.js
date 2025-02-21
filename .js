@@ -3,7 +3,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
 
 <script>
-  // ✅ Firebase Configuration
+  // Firebase Config
   const firebaseConfig = {
     apiKey: "AIzaSyBisU1Zs8Bh001KLW39eJK8OAkaP_iLUrE",
     authDomain: "plant-44faa.firebaseapp.com",
@@ -14,11 +14,11 @@
     measurementId: "G-4X8RF8VYL2"
   };
 
-  // ✅ Initialize Firebase
+  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
 
-  // 🔹 Function to handle user registration
+  // Function to handle user registration
   function registerUser(event) {
     event.preventDefault();
     let email = document.getElementById("register-email").value.trim();
@@ -39,7 +39,7 @@
       });
   }
 
-  // 🔹 Function to handle user login
+  // Function to handle user login
   function loginUser(event) {
     event.preventDefault();
     let email = document.getElementById("login-email").value.trim();
@@ -60,7 +60,7 @@
       });
   }
 
-  // 🔹 Format Firebase Errors for Better UX
+  // Format Firebase Errors for Better UX
   function formatFirebaseError(errorCode) {
     const errorMessages = {
       "auth/email-already-in-use": "This email is already registered. Try logging in instead.",
@@ -74,7 +74,7 @@
     return errorMessages[errorCode] || "An unknown error occurred. Please try again.";
   }
 
-  // 🔹 Ensure Buttons Are Clickable
+  // Ensure Buttons Are Clickable
   document.addEventListener("DOMContentLoaded", function () {
     let registerForm = document.getElementById("register-form");
     let loginForm = document.getElementById("login-form");
