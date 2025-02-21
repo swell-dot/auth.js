@@ -1,2 +1,2 @@
 # auth.js
-PLANTOLOGY login code
+PLANTOLOGY login and register code
