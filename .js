@@ -25,8 +25,8 @@ const auth = getAuth(app);
 
 // ✅ Set Persistent Authentication (Fixes Incognito Mode Issues)
 setPersistence(auth, browserLocalPersistence)
-  .then(() => console.log("🔥 Auth persistence enabled"))
-  .catch(error => console.error("⚠️ Auth persistence error:", error));
+  .then(() => alert("🔥 Auth persistence enabled"))
+  .catch(error => alert("⚠️ Auth persistence error: " + error.message));
 
 // 🔹 Function to handle user registration
 function registerUser(event) {
@@ -36,19 +36,17 @@ function registerUser(event) {
   let password = document.getElementById("register-password").value.trim();
   
   if (!email || !password) {
-    alert("Please enter a valid email and password.");
+    alert("⚠️ Please enter a valid email and password.");
     return;
   }
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      console.log("✅ Registration Successful:", userCredential.user);
-      alert("Registration Successful! Redirecting...");
-      window.location.assign("https://your-wordpress-site.com/home");  // Update with actual homepage
+      alert("✅ Registration Successful!");
+      window.location.assign("https://your-wordpress-site.com/home");
     })
     .catch((error) => {
-      console.error("❌ Registration Error:", error.message);
-      alert(formatFirebaseError(error.code));
+      alert("❌ Registration Error: " + formatFirebaseError(error.code));
     });
 }
 
@@ -60,19 +58,17 @@ function loginUser(event) {
   let password = document.getElementById("login-password").value.trim();
 
   if (!email || !password) {
-    alert("Please enter a valid email and password.");
+    alert("⚠️ Please enter a valid email and password.");
     return;
   }
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      console.log("✅ Login Successful:", userCredential.user);
-      alert("Login Successful! Redirecting...");
-      window.location.assign("https://your-wordpress-site.com/dashboard");  // Update with actual dashboard URL
+      alert("✅ Login Successful!");
+      window.location.assign("https://your-wordpress-site.com/dashboard");
     })
     .catch((error) => {
-      console.error("❌ Login Error:", error.message);
-      alert(formatFirebaseError(error.code));
+      alert("❌ Login Error: " + formatFirebaseError(error.code));
     });
 }
 
